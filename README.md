@@ -12,6 +12,8 @@ Basic configuration.
 HOW TO'S
 -------
 
+Change the user for the installation in defaults/main.yml : currently : brichar ( for my local installation ).
+
 Install ansible : apt-get install ansible
 
 Install git : apt-get install git
@@ -34,3 +36,4 @@ Will remove SUDO password prompt.
 
 Ajust for RD environnement, Users, settings, etc.
 
+Lots will change as we change everything to be viable for RD'S.
