@@ -5,56 +5,56 @@
   connection: local
   become: yes
   tasks:
-    - name: create directoruy for awx
-      file: path=/home/brichar/awx state=directory
+    - name: Create directory for AWX.
+      file: path={{ awx_repo_dir }} state=directory
 
     - name: install nodejs package
       apt:
         name: nodejs
         state: latest
 
-    - name: download ansible awx
+    - name: Download AWX from Git repo.
       git:
-        repo: 'https://github.com/ansible/awx.git'
-        dest: '/home/brichar/awx'
-        version: 'devel'
-        update: 'yes'
+        repo: '{{ awx_repo }}'
+        dest: '{{ awx_repo_dir }}'
+        version: '{{ awx_version }}'
+        update: '{{ awx_keep_updated }}'
         force: yes
         accept_hostkey: yes
 
-    - name: Install the latest verision of package "python-pip"
+    - name: Install the latest verision of package "python-pip".
       apt:
         name: python-pip
         state: latest
 
-    - name: Install the latest verision of package "docker.io"
+    - name: Install the latest verision of package "docker.io".
       command: apt-get install -y docker.io
 
     - name: Start docker
-      command: systemctl start docker
+      command: systemctl start docker.
 
     - name: Enable docker on boot 
       command: systemctl enable docker
 
-    - name: Install docker python-pip
+    - name: Install docker python-pip.
       command: pip install docker
 
-    - name: Upgrade Ansible to latest version
+    - name: Upgrade Ansible to latest version.
       command: pip install --upgrade ansible
 
-    - name: Copy the inventory file to installation directory
+    - name: Copy the inventory file to installation directory.
       copy:
-        src: /home/brichar/awx-install/tasks/inventory
-        dest: /home/brichar/awx/installer/inventory
+        src: /home/{{ ansible_user }}/awx-install/templates/inventory
+        dest: '{{ awx_repo_dir }}/installer/inventory'
 
     - name: Run the AWX installation playbook.
-      command: "ansible-playbook -i inventory install.yml"
+      command: 'ansible-playbook -i inventory install.yml'
       args:
-        chdir: "/home/brichar/awx/installer"
+        chdir: '{{ awx_repo_dir }}/installer'
         creates: /etc/awx_playbook_complete
 
     - name: Create a file to mark whether this playbook has completed.
       file:
         path: /etc/awx_playbook_complete
         state: touch
-    changed_when: False
+      changed_when: false
