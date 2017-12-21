@@ -5,6 +5,9 @@
   connection: local
   become: yes
   tasks:
+    - name: Include environnement variable
+      include_vars: defaults/main.yml
+
     - name: Create directory for AWX.
       file: path={{ awx_repo_dir }} state=directory
 
