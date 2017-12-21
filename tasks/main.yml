@@ -1,4 +1,6 @@
  ---
+- hosts: localhost
+
 - name: setup ansible user
   user:
     name: '{{ ansible_user }}'
