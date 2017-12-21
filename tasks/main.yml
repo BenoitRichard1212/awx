@@ -21,11 +21,6 @@
     dest: '{{ awx_repo_dir }}'
     state: directory
 
-- name: install git package
-  apt:
-    name: git
-    state: latest
-
 - name: install nodejs package
   apt:
     name: nodejs
