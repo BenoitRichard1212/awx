@@ -41,3 +41,6 @@
 
     - name: Upgrade Ansible to latest version
       command: pip install --upgrade ansible
+
+    - name: Run the AWX installation playbook.
+      command: "ansible-playbook -i inventory install.yml"
