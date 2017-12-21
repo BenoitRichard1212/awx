@@ -33,10 +33,10 @@
     - name: Install the latest verision of package "docker.io".
       command: apt-get install -y docker.io
 
-    - name: Start docker
-      command: systemctl start docker.
+    - name: Start docker.
+      command: systemctl start docker
 
-    - name: Enable docker on boot 
+    - name: Enable docker on boot .
       command: systemctl enable docker
 
     - name: Install docker python-pip.
