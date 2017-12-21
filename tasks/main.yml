@@ -5,6 +5,8 @@
   connection: local
   become: yes
   tasks:
+    - name: create directoruy for awx
+      file: path=~/awx state=directory
 
     - name: install nodejs package
       apt:
@@ -14,7 +16,7 @@
     - name: download ansible awx
       git:
         repo: 'https://github.com/ansible/awx.git'
-        dest: '/home'
+        dest: '~/awx'
         version: 'devel'
         update: 'yes'
         force: yes
