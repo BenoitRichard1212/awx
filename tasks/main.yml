@@ -51,6 +51,3 @@
 
     - name: Upgrade Ansible to latest version
       command: pip install --upgrade ansible
-
-    - include: awx-install-playbook.yml
-       when: awx_run_install_playbook
