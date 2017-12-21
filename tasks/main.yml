@@ -42,5 +42,19 @@
     - name: Upgrade Ansible to latest version
       command: pip install --upgrade ansible
 
+    - name: Copy the inventory file to installation directory
+      copy:
+        src: /home/brichar/awx-install/tasks/inventory
+        dest: /home/brichar/awx/installer/inventory
+
     - name: Run the AWX installation playbook.
-      command: "ansible-playbook -i tasks/inventory /home/brichar/awx/installer/install.yml"
+      command: "ansible-playbook -i inventory install.yml"
+      args:
+        chdir: "/home/brichar/awx/installer"
+        creates: /etc/awx_playbook_complete
+
+    - name: Create a file to mark whether this playbook has completed.
+      file:
+        path: /etc/awx_playbook_complete
+        state: touch
+    changed_when: False
