@@ -6,7 +6,7 @@
   become: yes
   tasks:
     - name: create directoruy for awx
-      file: path=~/awx state=directory
+      file: path=/home/brichar/awx state=directory
 
     - name: install nodejs package
       apt:
@@ -16,7 +16,7 @@
     - name: download ansible awx
       git:
         repo: 'https://github.com/ansible/awx.git'
-        dest: '~/awx'
+        dest: '/home/brichar/awx'
         version: 'devel'
         update: 'yes'
         force: yes
