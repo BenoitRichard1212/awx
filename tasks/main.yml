@@ -20,11 +20,6 @@
         force: yes
         accept_hostkey: yes
 
-    - name: Place inventory file
-      template:
-        src: awx_inventory
-        dest: '~/awx/installer/inventory'
-
     - name: Install the latest verision of package "python-pip"
       apt:
         name: python-pip
