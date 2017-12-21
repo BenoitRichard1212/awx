@@ -1,7 +1,7 @@
 ---
 ansible_user: ansible
 
-awx_repo: https://githun.com/ansible/awx.git
+awx_repo: https://github.com/ansible/awx.git
 awx_repo_dir: "~/{{ ansible_user }}/awx"
 awx_version: devel
 awx_keep_updated: yes

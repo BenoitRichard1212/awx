@@ -21,6 +21,21 @@
     dest: '{{ awx_repo_dir }}'
     state: directory
 
+- name: install git package
+  apt:
+    name: git
+    state: latest
+
+- name: install ansible package
+  apt:
+    name: ansible
+    state: latest
+
+- name: install nodejs package
+  apt:
+    name: nodejs
+    state: latest
+
 - name: download ansible awx
   git:
     repo: '{{ awx_repo }}'

@@ -1,5 +1,0 @@
----
-dependencies:
-  - tmbi.git
-  - tmbi.ansible
-  - tmbi.nodejs
