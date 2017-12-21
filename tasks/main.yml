@@ -28,7 +28,7 @@
     - name: Place inventory file
       template:
         src: awx_inventory
-        dest: {{ awx_repo_dir }}/installer/inventory
+        dest: '{{ awx_repo_dir }}/installer/inventory'
         owner: '{{ ansible_user }}'
         group: '{{ ansible_user }}'
 
