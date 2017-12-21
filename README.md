@@ -13,6 +13,7 @@ HOW TO'S
 -------
 
 Change the user for the installation in defaults/main.yml : currently : brichar ( for my local installation ).
+		For Installation on our Ansible Server, should change it for: ubuntu
 
 Install ansible : apt-get install ansible
 
