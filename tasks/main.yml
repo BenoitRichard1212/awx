@@ -26,11 +26,6 @@
     name: git
     state: latest
 
-- name: install ansible package
-  apt:
-    name: ansible
-    state: latest
-
 - name: install nodejs package
   apt:
     name: nodejs
