@@ -43,4 +43,4 @@
       command: pip install --upgrade ansible
 
     - name: Run the AWX installation playbook.
-      command: "ansible-playbook -i inventory install.yml"
+      command: "ansible-playbook -i ~/awx/installer/inventory ~/awx/installer/install.yml"
