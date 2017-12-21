@@ -11,7 +11,7 @@ Basic configuration.
 TO DO'S
 ------
 
-Most of the variable will be move to a seperate file.
+Most of the variable will be move to a seperate file. put user for the dir, to a modifiable one in a file.
 
 Will remove SUDO password prompt.
 
