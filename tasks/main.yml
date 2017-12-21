@@ -14,7 +14,7 @@
     - name: download ansible awx
       git:
         repo: 'https://github.com/ansible/awx.git'
-        dest: '~/'
+        dest: '/home'
         version: 'devel'
         update: 'yes'
         force: yes
