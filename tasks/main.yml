@@ -1,72 +1,56 @@
- ---
-name: "Run the automated AWX playbook locally"
-hosts: 127.0.0.1
-connection: "local"
-tasks:
-  - name: setup ansible user
-    user:
-      name: '{{ ansible_user }}'
-      shell: /bin/bash
-      groups: sudo,www-data
-      append: yes
-      state: present
+---
 
-  - name: allow ansible user to sudo without password
-    lineinfile:
-      dest: /etc/sudoers.d/{{ ansible_user }}
-      create: yes
-      owner: root
-      group: root
-      mode: 0440
-      line: '{{ ansible_user }} ALL=(ALL) NOPASSWD:ALL'
+- name: Run the automated AWX playbook locally
+  hosts: 127.0.0.1
+  connection: local
+  become: yes
+  tasks:
 
-  - name: create awx directory
-    file:
-      dest: '{{ awx_repo_dir }}'
-      state: directory
+    - name: create awx directory
+      file:
+        dest: '{{ awx_repo_dir }}'
+        state: directory
 
-  - name: install nodejs package
-    apt:
-      name: nodejs
-      state: latest
+    - name: install nodejs package
+      apt:
+        name: nodejs
+        state: latest
 
-  - name: download ansible awx
-    git:
-      repo: '{{ awx_repo }}'
-      dest: '{{ awx_repo_dir }}'
-      version: '{{ awx_version }}'
-      update: '{{ awx_keep_updated }}'
-      force: yes
-      accept_hostkey: yes
+    - name: download ansible awx
+      git:
+        repo: '{{ awx_repo }}'
+        dest: '{{ awx_repo_dir }}'
+        version: '{{ awx_version }}'
+        update: '{{ awx_keep_updated }}'
+        force: yes
+        accept_hostkey: yes
 
-  - name: Place inventory file
-    template:
-      src: awx_inventory
-      dest: {{ awx_repo_dir }}/installer/inventory
-      owner: '{{ ansible_user }}'
-      group: '{{ ansible_user }}'
+    - name: Place inventory file
+      template:
+        src: awx_inventory
+        dest: {{ awx_repo_dir }}/installer/inventory
+        owner: '{{ ansible_user }}'
+        group: '{{ ansible_user }}'
 
-  - name: Install the latest verision of package "python-pip"
-    apt:
-      name: python-pip
-      state: latest
+    - name: Install the latest verision of package "python-pip"
+      apt:
+        name: python-pip
+        state: latest
 
-  - name: Install the latest verision of package "docker.io"
-    command: apt-get install -y docker.io
+    - name: Install the latest verision of package "docker.io"
+      command: apt-get install -y docker.io
 
-  - name: Start docker
-    command: systemctl start docker
+    - name: Start docker
+      command: systemctl start docker
 
-  - name: Enable docker on boot 
-    command: systemctl enable docker
+    - name: Enable docker on boot 
+      command: systemctl enable docker
 
-  - name: Install docker python-pip
-    command: pip install docker
+    - name: Install docker python-pip
+      command: pip install docker
 
-  - name: Upgrade Ansible to latest version
-    command: pip install --upgrade ansible
+    - name: Upgrade Ansible to latest version
+      command: pip install --upgrade ansible
 
-  - include: awx-install-playbook.yml
-     when: awx_run_install_playbook
-
-
+    - include: awx-install-playbook.yml
+       when: awx_run_install_playbook
