@@ -6,11 +6,6 @@
   become: yes
   tasks:
 
-    - name: create awx directory
-      file:
-        dest: '{{ awx_repo_dir }}'
-        state: directory
-
     - name: install nodejs package
       apt:
         name: nodejs
@@ -18,19 +13,17 @@
 
     - name: download ansible awx
       git:
-        repo: '{{ awx_repo }}'
-        dest: '{{ awx_repo_dir }}'
-        version: '{{ awx_version }}'
-        update: '{{ awx_keep_updated }}'
+        repo: 'https://github.com/ansible/awx.git'
+        dest: '~/'
+        version: 'devel'
+        update: 'yes'
         force: yes
         accept_hostkey: yes
 
     - name: Place inventory file
       template:
         src: awx_inventory
-        dest: '{{ awx_repo_dir }}/installer/inventory'
-        owner: '{{ ansible_user }}'
-        group: '{{ ansible_user }}'
+        dest: '~/awx/installer/inventory'
 
     - name: Install the latest verision of package "python-pip"
       apt:
