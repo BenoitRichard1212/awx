@@ -1,5 +1,5 @@
 ---
-ansible_user: brichar
+ansible_user: ansible
 
 awx_repo: https://github.com/ansible/awx.git
 awx_repo_dir: "/home/{{ ansible_user }}/awx"
