@@ -12,7 +12,7 @@
       file: path={{ awx_repo_dir }} state=directory
       
     - name: Create directory for postgre.
-      file: path='{{ awx_repo_dir }}/pgdocker' state=directory
+      file: path='/home/ansible/pgdocker' state=directory
 
     - name: install nodejs package
       apt:
