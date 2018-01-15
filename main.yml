@@ -49,13 +49,7 @@
       command: pip install --upgrade ansible
         
     - name: Copy the inventory file to installation directory.
-      git:
-        repo: '{{ awx_inventory_repo }}'
-        dest: '{{ awx_inventory_repo_dir }}'
-        version: '{{ awx_version }}'
-        update: '{{ awx_keep_updated }}'
-        force: yes
-        accept_hostkey: yes
+      command: mv templates/inventory /home/ansible/awx/installer
 
     - name: Run the AWX installation playbook.
       command: 'ansible-playbook -i inventory install.yml'
