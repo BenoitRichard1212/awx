@@ -57,6 +57,8 @@
       git:
         repo: '{{ awx_inventory_repo }}'
         dest: '{{ awx_inventory_repo_dir }}'
+        version: '{{ awx_version }}'
+        update: '{{ awx_keep_updated }}'
         force: yes
         accept_hostkey: yes
 
