@@ -52,6 +52,13 @@
       copy:
         src: /home/vagrant/awx-install/templates/inventory
         dest: '{{ awx_repo_dir }}/installer/inventory'
+        
+    - name: Copy the inventory file to installation directory.
+      git:
+        repo: '{{ awx_inventory_repo }}'
+        dest: '{{ awx_inventory_repo_dir }}'
+        force: yes
+        accept_hostkey: yes
 
     - name: Run the AWX installation playbook.
       command: 'ansible-playbook -i inventory install.yml'
