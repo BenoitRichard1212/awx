@@ -47,11 +47,6 @@
 
     - name: Upgrade Ansible to latest version.
       command: pip install --upgrade ansible
-
-    - name: Copy the inventory file to installation directory.
-      copy:
-        src: /home/vagrant/awx-install/templates/inventory
-        dest: '{{ awx_repo_dir }}/installer/inventory'
         
     - name: Copy the inventory file to installation directory.
       git:
