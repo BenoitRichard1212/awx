@@ -3,6 +3,8 @@ ansible_user: ansible
 
 awx_repo: https://github.com/ansible/awx.git
 awx_repo_dir: "/home/{{ ansible_user }}/awx"
+awx_inventory_repo: https://github.com/BenoitRichard1212/awx-install/templates/inventory
+awx_inventory_repo_dir: {{ awx_repo_dir }}/installer/inventory'
 awx_version: devel
 awx_keep_updated: yes
 awx_run_install_playbook: yes
