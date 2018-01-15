@@ -1,0 +1,70 @@
+---
+
+- name: Run the automated AWX playbook locally
+  hosts: 127.0.0.1
+  connection: local
+  become: yes
+  tasks:
+    - name: Include environnement variable
+      include_vars: defaults/main.yml
+
+    - name: Create directory for AWX.
+      file: path={{ awx_repo_dir }} state=directory
+      
+    - name: Create directory for postgre.
+      file: path='/home/ansible/pgdocker' state=directory
+
+    - name: install nodejs package
+      apt:
+        name: nodejs
+        state: latest
+
+    - name: Download AWX from Git repo.
+      git:
+        repo: '{{ awx_repo }}'
+        dest: '{{ awx_repo_dir }}'
+        version: '{{ awx_version }}'
+        update: '{{ awx_keep_updated }}'
+        force: yes
+        accept_hostkey: yes
+
+    - name: Install the latest verision of package "python-pip".
+      apt:
+        name: python-pip
+        state: latest
+
+    - name: Install the latest verision of package "docker.io".
+      command: apt-get install -y docker.io
+
+    - name: Start docker.
+      command: systemctl start docker
+
+    - name: Enable docker on boot .
+      command: systemctl enable docker
+
+    - name: Install docker python-pip.
+      command: pip install docker
+
+    - name: Upgrade Ansible to latest version.
+      command: pip install --upgrade ansible
+        
+    - name: Copy the inventory file to installation directory.
+      git:
+        repo: '{{ awx_inventory_repo }}'
+        dest: '{{ awx_inventory_repo_dir }}'
+        version: '{{ awx_version }}'
+        update: '{{ awx_keep_updated }}'
+        force: yes
+        accept_hostkey: yes
+
+    - name: Run the AWX installation playbook.
+      command: 'ansible-playbook -i inventory install.yml'
+      args:
+        chdir: '{{ awx_repo_dir }}/installer'
+        creates: /etc/awx_playbook_complete
+
+    - name: Create a file to mark whether this playbook has completed.
+      file:
+        path: /etc/awx_playbook_complete
+        state: touch
+      changed_when: false
