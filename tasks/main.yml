@@ -50,7 +50,7 @@
 
     - name: Copy the inventory file to installation directory.
       copy:
-        src: /home/{{ ansible_user }}/awx-install/templates/inventory
+        src: /home/vagrant/awx-install/templates/inventory
         dest: '{{ awx_repo_dir }}/installer/inventory'
 
     - name: Run the AWX installation playbook.
